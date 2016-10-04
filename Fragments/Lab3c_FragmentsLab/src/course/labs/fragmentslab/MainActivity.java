@@ -25,10 +25,9 @@ public class MainActivity extends Activity implements
 			
 			mFriendsFragment = new FriendsFragment();
 
-			//TODO 1 - add the FriendsFragment to the fragment_container
-			
-			
-			
+			FragmentTransaction transaction = getFragmentManager().beginTransaction();
+			transaction.add(R.id.fragment_container, mFriendsFragment);
+			transaction.commit();
 
 		} else {
 
@@ -64,11 +63,11 @@ public class MainActivity extends Activity implements
 
 		if (!isInTwoPaneMode()) {
 
-			//TODO 2 - replace the fragment_container with the FeedFragment
-			
-
-			
-
+            Log.e(TAG, "Tablet falls into single pane mode!");
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, mFeedFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 			// execute transaction now
 			getFragmentManager().executePendingTransactions();
 
