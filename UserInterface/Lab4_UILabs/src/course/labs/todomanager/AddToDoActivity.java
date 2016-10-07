@@ -89,32 +89,22 @@ public class AddToDoActivity extends Activity {
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
-
-				// TODO - Indicate result and finish
-
-                
-                
+				setResult(RESULT_CANCELED);
+                finish();
 			}
 		});
 
-		// TODO - Set up OnClickListener for the Reset Button
+		// Set up OnClickListener for the Reset Button
 		final Button resetButton = (Button) findViewById(R.id.resetButton);
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
+				// Reset data to default values
+				setDefaultData();
 
-				// TODO - Reset data to default values
-
-
-                
-                
-                
 				// reset date and time
 				setDefaultDateTime();
-
 			}
 		});
 
@@ -128,17 +118,11 @@ public class AddToDoActivity extends Activity {
 
 				// gather ToDoItem data
 
+				Priority priority = getPriority();
 
-				// TODO - Get the current Priority
-				Priority priority = null;
+				Status status = getStatus();
 
-				// TODO - Get the current Status
-				Status status = null;
-
-				// TODO - Get the current ToDoItem Title
-
-
-				String titleString = null;
+				String titleString = getToDoTitle();
 
 
 				// Construct the Date string
@@ -149,15 +133,10 @@ public class AddToDoActivity extends Activity {
 				ToDoItem.packageIntent(data, titleString, priority, status,
 						fullDate);
 
-				// TODO - return data Intent and finish
-
-
-
-
-            
-            
+                setResult(RESULT_OK, data);
+                finish();
 			}
-		    });
+        });
 	}
 
 	// Do not modify below this point.
@@ -207,6 +186,12 @@ public class AddToDoActivity extends Activity {
 			min = "0" + minute;
 
 		timeString = hour + ":" + min + ":00";
+	}
+
+	private void setDefaultData() {
+		mTitleText.setText(R.string.enter_title_string);
+		mPriorityRadioGroup.check(mDefaultPriorityButton.getId());
+		mStatusRadioGroup.check(mDefaultStatusButton.getId());
 	}
 
 	private Priority getPriority() {
