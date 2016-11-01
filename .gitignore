@@ -36,3 +36,6 @@ proguard/
 
 */.idea
 *.iml
+*/*.zip
+*/*Submit
+*/projectFilesBackup
