@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -44,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
             squares.add(i, view);
             container.addView(view, params);
         }
-        refreshColors(0);
+        int progress = ((SeekBar)findViewById(R.id.seek_bar)).getProgress();
+        refreshColors(progress);
     }
 
     private void refreshColors(int position) {
@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            InfoDialogFragment dialogFragment = new InfoDialogFragment();
+            dialogFragment.setStyle(InfoDialogFragment.STYLE_NO_FRAME, 0);
+            dialogFragment.show(getSupportFragmentManager(), "info dialog");
             return true;
         }
 
@@ -138,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
-                Log.i("SEEKBAR", "progress: " + progress);
                 refreshColors(progress);
             }
         });
